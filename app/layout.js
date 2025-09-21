@@ -32,6 +32,11 @@ export const metadata = {
   alternates: {
     canonical: '/'
   },
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg'
+  },
   openGraph: {
     title: 'Sofiane El Habib · Front-End Developer',
     description:
