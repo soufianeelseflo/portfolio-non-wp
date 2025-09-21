@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Soufiane logo">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6e98ff"/>
+      <stop offset="1" stop-color="#234fff"/>
+    </linearGradient>
+  </defs>
+  <rect x="16" y="16" width="224" height="224" rx="48" fill="url(#g)"/>
+  <path d="M170 72H100c-18 0-30 12-30 28 0 14 8 24 22 28l54 15c10 3 16 9 16 18 0 12-10 21-24 21h-70" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="188" cy="60" r="10" fill="#fff" opacity="0.9"/>
+</svg>
