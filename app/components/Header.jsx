@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Github, Mail, Sun, Moon, Menu, X } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { NAV_LINKS } from '../../lib/constants';
 
@@ -13,6 +13,8 @@ export default function Header() {
   const pathname = usePathname();
   const [isDark, setIsDark] = useState(false);
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const navRef = useRef(null);
+  const navId = 'primary-navigation';
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -88,9 +90,15 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
+    setIsNavOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
     if (typeof document === 'undefined') return;
     if (isNavOpen) {
       document.body.style.setProperty('overflow', 'hidden');
+      const focusable = navRef.current?.querySelector('a, button');
+      focusable?.focus();
     } else {
       document.body.style.removeProperty('overflow');
     }
@@ -107,13 +115,16 @@ export default function Header() {
           <span>Soufiane</span>
         </Link>
         <div className="flex items-center gap-2 md:hidden">
-          <button aria-label="Toggle theme" className="badge" onClick={toggleTheme}>
+          <button aria-label="Toggle theme" className="badge" onClick={toggleTheme} type="button">
             {isDark ? <Sun size={16} /> : <Moon size={16} />}
           </button>
           <button
             aria-label={isNavOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={isNavOpen}
+            aria-controls={navId}
+            aria-haspopup="true"
             className="badge"
+            type="button"
             onClick={() => setIsNavOpen((open) => !open)}
           >
             {isNavOpen ? <X size={16} /> : <Menu size={16} />}
@@ -121,6 +132,8 @@ export default function Header() {
         </div>
         <nav
           aria-label="Primary navigation"
+          id={navId}
+          ref={navRef}
           className={`w-full flex-col gap-2 mt-2 md:mt-0 md:w-auto md:flex-row md:items-center md:gap-3 ${isNavOpen ? 'flex' : 'hidden md:flex'}`}
         >
           <ul className="flex w-full flex-col gap-2 md:flex-row md:items-center md:gap-3">
@@ -143,6 +156,7 @@ export default function Header() {
               <button
                 aria-label="Toggle theme"
                 className="badge"
+                type="button"
                 onClick={toggleTheme}
               >
                 {isDark ? <Sun size={16} /> : <Moon size={16} />}

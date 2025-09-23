@@ -48,7 +48,7 @@ export default function AboutPage() {
 
         <AboutStory principles={principles} />
 
-        <section aria-label="Expertise" className="grid gap-4 md:grid-cols-3">
+        <section aria-label="Expertise" className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           <article className="card p-6">
             <h2 className="text-lg font-semibold tracking-tight">Impact</h2>
             <p className="mt-3 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
@@ -63,7 +63,7 @@ export default function AboutPage() {
           </article>
           <article className="card p-6">
             <h2 className="text-lg font-semibold tracking-tight">Toolset</h2>
-            <ul className="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
+            <ul className="mt-3 grid grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300 sm:grid-cols-3">
               {toolset.map((item) => (
                 <li key={item} className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-600 dark:bg-gray-800/70 dark:text-gray-300">
                   {item}

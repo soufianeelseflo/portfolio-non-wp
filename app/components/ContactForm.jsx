@@ -42,9 +42,10 @@ export default function ContactForm() {
   return (
     <form onSubmit={onSubmit} className="card p-6 space-y-4" noValidate>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="contact-name">
           Name
           <input
+            id="contact-name"
             name="name"
             type="text"
             autoComplete="name"
@@ -55,9 +56,10 @@ export default function ContactForm() {
             className="mt-1 w-full rounded-xl border border-gray-300/70 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:border-gray-700/70 dark:bg-gray-900"
           />
         </label>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="contact-email">
           Email
           <input
+            id="contact-email"
             name="email"
             type="email"
             autoComplete="email"
@@ -65,13 +67,15 @@ export default function ContactForm() {
             required
             maxLength={160}
             aria-required="true"
+            aria-invalid={status.state === 'error'}
             className="mt-1 w-full rounded-xl border border-gray-300/70 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:border-gray-700/70 dark:bg-gray-900"
           />
         </label>
       </div>
-      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="contact-message">
         Message
         <textarea
+          id="contact-message"
           name="message"
           rows={6}
           minLength={12}
@@ -79,6 +83,7 @@ export default function ContactForm() {
           required
           aria-required="true"
           aria-describedby="contact-message-count"
+          aria-invalid={status.state === 'error'}
           onChange={(event) => setCount(event.target.value.length)}
           className="mt-1 w-full rounded-xl border border-gray-300/70 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:border-gray-700/70 dark:bg-gray-900"
         />
@@ -87,7 +92,7 @@ export default function ContactForm() {
         </span>
       </label>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-        <button className="btn" type="submit" disabled={isLoading}>
+        <button className="btn" type="submit" disabled={isLoading} aria-busy={isLoading}>
           {isLoading ? 'Sending…' : 'Send message'}
         </button>
         {status.state !== 'idle' && (

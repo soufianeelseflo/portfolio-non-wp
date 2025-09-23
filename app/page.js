@@ -49,7 +49,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section aria-label="Focus areas" className="grid gap-6 md:grid-cols-3">
+        <section aria-label="Focus areas" className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {focusAreas.map((area) => (
             <article key={area.title} className="card h-full p-6 text-left">
               <h2 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-gray-100">

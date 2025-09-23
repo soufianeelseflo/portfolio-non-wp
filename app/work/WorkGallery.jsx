@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useDeferredValue, useMemo, useState } from 'react';
 import ProjectCard from '../components/ProjectCard';
 
 const ALL = 'All';
@@ -8,6 +8,7 @@ const ALL = 'All';
 export default function WorkGallery({ initialRepos = [] }) {
   const [query, setQuery] = useState('');
   const [language, setLanguage] = useState(ALL);
+  const deferredQuery = useDeferredValue(query);
 
   const repos = useMemo(() => {
     return [...initialRepos].sort((a, b) => {
@@ -27,7 +28,7 @@ export default function WorkGallery({ initialRepos = [] }) {
   }, [repos]);
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = deferredQuery.trim().toLowerCase();
     return repos.filter((repo) => {
       const matchesQuery = !q
         || repo.name?.toLowerCase().includes(q)
@@ -36,14 +37,22 @@ export default function WorkGallery({ initialRepos = [] }) {
       const matchesLanguage = language === ALL || repo.language === language;
       return matchesQuery && matchesLanguage;
     });
-  }, [repos, query, language]);
+  }, [repos, deferredQuery, language]);
+
+  const searchId = 'project-search';
+  const selectId = 'project-language';
+  const listId = 'project-results';
+  const resultsCount = filtered.length;
 
   return (
     <section aria-live="polite" className="mt-8 space-y-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
-        <label className="flex w-full flex-col gap-1 text-sm font-medium text-gray-700 dark:text-gray-300">
-          Search projects
+        <div className="flex w-full flex-col gap-1">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor={searchId}>
+            Search projects
+          </label>
           <input
+            id={searchId}
             type="search"
             name="search"
             placeholder="Search by name, description, or topic"
@@ -51,10 +60,13 @@ export default function WorkGallery({ initialRepos = [] }) {
             onChange={(event) => setQuery(event.target.value)}
             className="w-full rounded-xl border border-gray-300/70 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:border-gray-700/70 dark:bg-gray-900"
           />
-        </label>
-        <label className="flex w-full flex-col gap-1 text-sm font-medium text-gray-700 dark:text-gray-300 sm:w-56">
-          Filter by language
+        </div>
+        <div className="flex w-full flex-col gap-1 sm:w-56">
+          <label className="text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor={selectId}>
+            Filter by language
+          </label>
           <select
+            id={selectId}
             name="language"
             value={language}
             onChange={(event) => setLanguage(event.target.value)}
@@ -66,22 +78,22 @@ export default function WorkGallery({ initialRepos = [] }) {
               </option>
             ))}
           </select>
-        </label>
+        </div>
       </div>
 
-      <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
-        Showing {filtered.length} project{filtered.length === 1 ? '' : 's'}
+      <p className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400" role="status" aria-live="polite">
+        Showing {resultsCount} project{resultsCount === 1 ? '' : 's'}
         {language !== ALL && ` · ${language}`}
-        {query && ` · “${query}”`}
+        {query && ` · “${query.trim()}”`}
       </p>
 
-      {filtered.length === 0 ? (
+      {resultsCount === 0 ? (
         <div className="card p-6 text-sm text-gray-600 dark:text-gray-300">
           <p>No projects match your filters yet. Try clearing the search or choosing a different language.</p>
         </div>
       ) : (
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.slice(0, 15).map((project) => (
+        <div id={listId} className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          {filtered.map((project) => (
             <ProjectCard key={project.id} {...project} />
           ))}
         </div>
