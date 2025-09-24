@@ -1,16 +1,36 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="logoTitle logoDesc">
-  <title id="logoTitle">Soufiane monogram</title>
-  <desc id="logoDesc">Rounded square gradient background with stylised S letter</desc>
+  <title id="logoTitle">Soufiane signature S</title>
+  <desc id="logoDesc">Rounded square in brand blues with a flowing S monogram</desc>
   <defs>
-    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#234FFF" />
-      <stop offset="100%" stop-color="#142A8F" />
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%" gradientTransform="rotate(12 0.5 0.5)">
+      <stop offset="0%" stop-color="#3f72ff" />
+      <stop offset="100%" stop-color="#142a8f" />
     </linearGradient>
+    <linearGradient id="sGradient" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#f8fbff" />
+      <stop offset="100%" stop-color="#d4e3ff" stop-opacity="0.95" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="30%" r="65%">
+      <stop offset="0%" stop-color="#8ea9ff" stop-opacity="0.38" />
+      <stop offset="100%" stop-color="#8ea9ff" stop-opacity="0" />
+    </radialGradient>
   </defs>
-  <rect width="64" height="64" rx="18" fill="url(#grad)" />
+  <rect width="64" height="64" rx="18" fill="url(#bgGradient)" />
+  <rect width="64" height="64" rx="18" fill="url(#glow)" />
   <path
-    d="M21 22.5c0-4.14 3.36-7.5 7.5-7.5h13c4.14 0 7.5 3.36 7.5 7.5s-3.36 7.5-7.5 7.5h-12c-4.42 0-8 3.58-8 8s3.58 8 8 8h13.5c4 0 7.5 3.08 7.5 7 0 3.86-3.5 7-7.5 7H28.5c-7.73 0-14-6.27-14-14 0-5.4 3.15-10.09 7.75-12.37-4.8-1.86-8.25-6.5-8.25-12.13z"
-    fill="#F8FAFF"
-    opacity="0.95"
+    d="M46 18H27c-6 0-11 4-11 9.5S21 37 27 37h12c4.6 0 8.2 3.2 8.2 7.5S43 52 38.2 52H18"
+    fill="none"
+    stroke="url(#sGradient)"
+    stroke-width="6.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M22 15.5c2.4-2 5.7-3.5 9.9-3.5H46"
+    fill="none"
+    stroke="#9bb6ff"
+    stroke-opacity="0.44"
+    stroke-width="3.5"
+    stroke-linecap="round"
   />
 </svg>
